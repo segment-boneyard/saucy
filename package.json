@@ -5,7 +5,7 @@
   , "keywords": ["test", "bdd", "tdd", "sauce", "sauce labs", "mocha", "jasmine", "selenium"]
   , "author": "Ilya Volodarsky <ilya@segment.io>"
   , "main": "index"
-  , "bin": { "saucy": "./bin/saucy" }
+  , "bin": { "saucy": "./bin/saucy.js" }
   , "engines": { "node": ">= 0.4.x < 0.8.0" }
   , "dependencies":{
       "commander": "*"
