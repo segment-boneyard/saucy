@@ -1,0 +1,5 @@
+Add clientside/json.js to enable jsonEncoding on browsers where JSON.stringify is unavailable. 
+If testing with mocha clientside, add clientside/selenium.js and add the reporter to the runner. 
+
+Still an alpha build, havent had a chance to add real documentation yet. 
+

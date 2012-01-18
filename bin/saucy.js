@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var program = require('../../commander.js/lib/commander')
+var program = require('commander')
   , path = require('path')
   , resolve = path.resolve
   , SaucySuite = require('../lib/saucy').SaucySuite
@@ -35,8 +35,10 @@ program
   .option('-p, --parser !<parser>', 'specify the parser to use against the javascript files')
   .option('-R, --reporter !<reporter>', 'specify the reporter to use')
   .option('-t, --timeout <ms>', 'set test-case timeout in milliseconds [2000]')
+  .option('-v, --video', 'record a video on saucy labs')
+  .option('-i, --individually', 'report each test from sauce labs individually (slower)')
+  .option('-x, --proxy', 'allow sauce labs proxying')
   .option('-G, --growl', 'enable growl notification support')
-  .option('--ignore-leaks', 'ignore global variable leaks')
 
 program.name = 'saucy';
 
@@ -52,20 +54,22 @@ var suite = new SaucySuite()
 
 if (program.name) suite.name(program.testname);
 if (program.timeout) suite.timeout(program.timeout);
-
-console.log(program.browserversion);
+if (program.individually) suite.setIndividually(program.individually);
 
 suite.parser(parser);
 suite.url(program.url);
-suite.connection(new SauceLabsConnection(program.username, program.access));
+
+var connection = new SauceLabsConnection(program.username, program.access);
+connection.setVideo(program.video);
+connection.setProxy(program.proxy);
+
+suite.connection(connection);
 suite.addBrowser(new BrowserDetails(program.os, program.browser, program.browserversion));
 
 // initializes the mocha structures
 suite.init();
 
 suite.addReporter(program.reporter);
-
-if (program.ignoreLeaks) suite.ignoreLeaks(suite.ignoreLeaks);
 
 // files
 var files = program.args;
@@ -74,7 +78,6 @@ var files = program.args;
 files = files.map(function(path){
   return resolve(path);
 });
-console.log(files);
 
 var hooks = parser.parseFiles(files);
 suite.setHooks(hooks);
