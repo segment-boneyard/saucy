@@ -1,0 +1,22 @@
+{
+    "name": "saucy"
+  , "version": "0.0.1"
+  , "description": "run javascript tests on sauce labs"
+  , "keywords": ["test", "bdd", "tdd", "sauce labs", "mocha", "jasmine"]
+  , "author": "Ilya Volodarsky <ilya@segment.io>"
+  , "main": "index"
+  , "bin": { "saucy": "./bin/saucy" }
+  , "engines": { "node": ">= 0.4.x < 0.8.0" }
+  , "scripts": {
+    "test": "make test"
+  }
+  , "dependencies":{
+      "commander": "0.5.x"
+    , "mocha": "*"
+    , "debug": "*"
+    , "chai": "*"
+    , "underscore": "*"
+    , "soda": "*"
+    , "jessie": "*"
+  }
+}
