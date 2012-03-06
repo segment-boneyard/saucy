@@ -46,6 +46,9 @@ program.name = 'saucy';
 
 program.parse(process.argv);
 
+if (!program.parser)
+    throw new Error('Please provide a parser using the -p or --parser command (options: jasmine, mocha). Do --help for usage.');
+
 // reporter
 
 var suite = new SaucySuite()
